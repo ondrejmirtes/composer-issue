@@ -14,9 +14,8 @@ if ($loader->findFile(\PromotedPropertiesTypes\Foo::class) === false) {
 	$errors++;
 }
 
-if ($errors === 0) {
-	echo "Everything okay\n";
-	return;
+if ($errors !== 0) {
+	exit(1);
 }
 
-exit(1);
+echo "Everything okay\n";
