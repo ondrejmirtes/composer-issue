@@ -1,0 +1,8 @@
+{
+	"name": "ondrejmirtes/composer-issue-test",
+	"description": "",
+	"license": "MIT",
+	"autoload": {
+		"classmap": ["src"]
+	}
+}

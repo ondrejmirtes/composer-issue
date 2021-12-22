@@ -1,0 +1,46 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Tests"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "master"
+
+env:
+  COMPOSER_ROOT_VERSION: "1.3.x-dev"
+
+jobs:
+  tests:
+    name: "Tests"
+    runs-on: ${{ matrix.operating-system }}
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+        operating-system: [ ubuntu-latest, windows-latest ]
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "${{ matrix.php-version }}"
+
+      - name: "Install dependencies"
+        run: "composer install --no-interaction --no-progress"
+
+      - name: "Tests"
+        run: "php test.php"
