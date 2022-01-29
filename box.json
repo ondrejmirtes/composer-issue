@@ -1,0 +1,18 @@
+{
+	"chmod": "0755",
+	"main": "bin.php",
+	"alias": "phpstan.phar",
+	"directories": [
+		"src"
+	],
+	"files": [
+		".gitignore"
+	],
+	"finder-bin": [
+		{
+			"name": ["LICENSE*", "license*"],
+			"in": "vendor"
+		}
+	],
+	"force-autodiscovery": true
+}

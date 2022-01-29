@@ -21,13 +21,8 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "7.1"
-          - "7.2"
-          - "7.3"
-          - "7.4"
-          - "8.0"
           - "8.1"
-        operating-system: [ ubuntu-latest, windows-latest ]
+        operating-system: [ ubuntu-latest ]
         composer-version:
           - "2.0"
           - "2.1"
@@ -45,8 +40,5 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           tools: "composer:${{ matrix.composer-version }}"
 
-      - name: "Install dependencies"
-        run: "composer install --no-interaction --no-progress"
-
-      - name: "Dump autoload"
-        run: "composer dump-autoload --classmap-authoritative --no-dev"
+      - name: "Build PHAR"
+        run: "php vendor/bin/box compile --config $(pwd)/box.json"
