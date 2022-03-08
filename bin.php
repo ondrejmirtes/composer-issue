@@ -1,4 +1,5 @@
 #!/usr/bin/env php
 <?php
 
-echo "Hello world!\n";
+echo PHP_VERSION . "\n";
+echo PHP_VERSION_ID . "\n";

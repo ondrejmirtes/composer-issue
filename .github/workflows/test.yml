@@ -5,8 +5,7 @@ name: "Tests"
 on:
   pull_request:
   push:
-    branches:
-      - "master"
+
 
 env:
   COMPOSER_ROOT_VERSION: "1.3.x-dev"
@@ -21,13 +20,11 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "8.1"
-        operating-system: [ ubuntu-latest ]
-        composer-version:
-          - "2.0"
-          - "2.1"
-          - "2.2"
-          - "snapshot"
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+        operating-system: [ ubuntu-latest, windows-latest ]
 
     steps:
       - name: "Checkout"
@@ -38,7 +35,24 @@ jobs:
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
-          tools: "composer:${{ matrix.composer-version }}"
 
-      - name: "Build PHAR"
-        run: "php vendor/bin/box compile --config $(pwd)/box.json"
+      - name: "Print PHP version - should be ${{ matrix.php-version }}"
+        run: "php bin.php"
+
+      - name: "Install new PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "8.0"
+
+      - name: "Print PHP version - should be 8.0"
+        run: "php bin.php"
+
+      - name: "Reinstall PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "${{ matrix.php-version }}"
+
+      - name: "Print PHP version - should be ${{ matrix.php-version }}"
+        run: "php bin.php"
