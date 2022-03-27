@@ -22,7 +22,7 @@ jobs:
       matrix:
         php-version:
           - "8.1"
-        operating-system: [ ubuntu-latest ]
+        operating-system: [ ubuntu-latest, windows-latest ]
         composer-version:
           - "2.0"
           - "2.1"
@@ -40,5 +40,5 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           tools: "composer:${{ matrix.composer-version }}"
 
-      - name: "Build PHAR"
-        run: "php vendor/bin/box compile --config $(pwd)/box.json"
+      - name: "Diagnose"
+        run: "composer diagnose"
